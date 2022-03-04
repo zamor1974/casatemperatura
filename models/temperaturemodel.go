@@ -72,7 +72,7 @@ func GetTemperaturesSqlx(db *sql.DB) *Temperatures {
 }
 func GetLastTemperatureSqlx(db *sql.DB) *Temperatures {
 	temperatures := Temperatures{}
-	rows, err := db.Query("SELECT id, valore, data_inserimento FROM temperatura where id = (select max(id) from pioggia)")
+	rows, err := db.Query("SELECT id, valore, data_inserimento FROM temperatura where id = (select max(id) from temperatura)")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -130,7 +130,6 @@ func PostTemperatureSqlx(db *sql.DB, reqTemperature *ReqAddTemperature) (*Temper
 
 	//sqlStatement := fmt.Sprintf("insert into 'pioggia' ('valore','data_inserimento') values (%d,CURRENT_TIMESTAMP) RETURNING id", value)
 	sqlStatement := fmt.Sprintf("insert into temperatura (valore,data_inserimento) values (%.2f,CURRENT_TIMESTAMP) RETURNING id", value)
-	log.Println(sqlStatement)
 
 	err := db.QueryRow(sqlStatement).Scan(&lastInsertId)
 
