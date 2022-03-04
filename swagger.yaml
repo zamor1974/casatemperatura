@@ -1,34 +1,4 @@
 definitions:
-  Altitude:
-    properties:
-      data_inserimento:
-        description: |-
-          Timestamp of insert
-          in: time
-        format: date-time
-        type: string
-        x-go-name: DateInsert
-      id:
-        description: |-
-          Id of rain value
-          in: int64
-        format: int64
-        type: integer
-        x-go-name: Id
-      valore:
-        description: |-
-          Value of Altitude
-          in: int
-        format: float
-        type: number
-        x-go-name: Value
-    type: object
-    x-go-package: casaaltitudine/models
-  Altitudes:
-    items:
-      $ref: '#/definitions/Altitude'
-    type: array
-    x-go-package: casaaltitudine/models
   CommonError:
     properties:
       message:
@@ -45,7 +15,7 @@ definitions:
         type: integer
         x-go-name: Status
     type: object
-    x-go-package: casaaltitudine/controllers
+    x-go-package: casatemperatura/controllers
   CommonSuccess:
     properties:
       message:
@@ -62,11 +32,11 @@ definitions:
         type: integer
         x-go-name: Status
     type: object
-    x-go-package: casaaltitudine/controllers
-  GetAltitude:
+    x-go-package: casatemperatura/controllers
+  GetTemperature:
     properties:
       data:
-        $ref: '#/definitions/Altitude'
+        $ref: '#/definitions/Temperature'
       message:
         description: |-
           Message of the response
@@ -81,11 +51,11 @@ definitions:
         type: integer
         x-go-name: Status
     type: object
-    x-go-package: casaaltitudine/controllers
-  GetAltitudes:
+    x-go-package: casatemperatura/controllers
+  GetTemperatures:
     properties:
       data:
-        $ref: '#/definitions/Altitudes'
+        $ref: '#/definitions/Temperatures'
       message:
         description: |-
           Message of the response
@@ -100,64 +70,94 @@ definitions:
         type: integer
         x-go-name: Status
     type: object
-    x-go-package: casaaltitudine/controllers
-  ReqAddAltitude:
+    x-go-package: casatemperatura/controllers
+  ReqAddTemperature:
     properties:
       valore:
         description: |-
-          Value of the Altitude
-          in: int
-        format: int64
-        type: integer
+          Value of the Temperature
+          in: float
+        format: float
+        type: number
         x-go-name: Value
     type: object
-    x-go-package: casaaltitudine/models
+    x-go-package: casatemperatura/models
+  Temperature:
+    properties:
+      data_inserimento:
+        description: |-
+          Timestamp of insert
+          in: time
+        format: date-time
+        type: string
+        x-go-name: DateInsert
+      id:
+        description: |-
+          Id of Temperature value
+          in: int64
+        format: int64
+        type: integer
+        x-go-name: Id
+      valore:
+        description: |-
+          Value of Temperature
+          in: float
+        format: float
+        type: number
+        x-go-name: Value
+    type: object
+    x-go-package: casatemperatura/models
+  Temperatures:
+    items:
+      $ref: '#/definitions/Temperature'
+    type: array
+    x-go-package: casatemperatura/models
 info:
-  title: 'Altitude Api:'
+  title: 'Temperature Api:'
   version: 0.1.1
 paths:
-  /altitude:
-    post:
-      description: Create a new altitude value
-      operationId: addAltitude
-      responses:
-        "200":
-          description: GetAltitude
-          schema:
-            $ref: '#/definitions/GetAltitude'
-        "401":
-          description: CommonError
-          schema:
-            $ref: '#/definitions/CommonError'
-      security:
-      - apiKey:
-        - '[]'
-  /altitudes:
-    get:
-      description: Get Altitude list
-      operationId: listAltitude
-      responses:
-        "200":
-          description: GetAltitudes
-          schema:
-            $ref: '#/definitions/GetAltitudes'
-        "401":
-          description: CommonError
-          schema:
-            $ref: '#/definitions/CommonError'
-      security:
-      - apiKey:
-        - '[]'
   /lasthour:
     get:
-      description: Get list of last hour of altitude values .... or the last value
+      description: Get list of last hour of temperature values .... or the last value
         inserted
       operationId: lastHour
       responses:
         "200":
-          description: GetAltitudes
+          description: GetTemperatures
           schema:
-            $ref: '#/definitions/GetAltitudes'
+            $ref: '#/definitions/GetTemperatures'
+        "401":
+          description: CommonError
+          schema:
+            $ref: '#/definitions/CommonError'
+      security:
+      - apiKey:
+        - '[]'
+  /temperature:
+    post:
+      description: Create a new temperature value
+      operationId: addTemperature
+      responses:
+        "200":
+          description: GetTemperature
+          schema:
+            $ref: '#/definitions/GetTemperature'
+        "401":
+          description: CommonError
+          schema:
+            $ref: '#/definitions/CommonError'
+      security:
+      - apiKey:
+        - '[]'
+  /temperatures:
+    get:
+      description: Get Temperature list
+      operationId: listTemperature
+      responses:
+        "200":
+          description: GetTemperatures
+          schema:
+            $ref: '#/definitions/GetTemperatures'
         "401":
           description: CommonError
           schema:
