@@ -1,0 +1,173 @@
+definitions:
+  Altitude:
+    properties:
+      data_inserimento:
+        description: |-
+          Timestamp of insert
+          in: time
+        format: date-time
+        type: string
+        x-go-name: DateInsert
+      id:
+        description: |-
+          Id of rain value
+          in: int64
+        format: int64
+        type: integer
+        x-go-name: Id
+      valore:
+        description: |-
+          Value of Altitude
+          in: int
+        format: float
+        type: number
+        x-go-name: Value
+    type: object
+    x-go-package: casaaltitudine/models
+  Altitudes:
+    items:
+      $ref: '#/definitions/Altitude'
+    type: array
+    x-go-package: casaaltitudine/models
+  CommonError:
+    properties:
+      message:
+        description: |-
+          Message of the error
+          in: string
+        type: string
+        x-go-name: Message
+      status:
+        description: |-
+          Status of the error
+          in: int64
+        format: int64
+        type: integer
+        x-go-name: Status
+    type: object
+    x-go-package: casaaltitudine/controllers
+  CommonSuccess:
+    properties:
+      message:
+        description: |-
+          Message of the error
+          in: string
+        type: string
+        x-go-name: Message
+      status:
+        description: |-
+          Status of the error
+          in: int64
+        format: int64
+        type: integer
+        x-go-name: Status
+    type: object
+    x-go-package: casaaltitudine/controllers
+  GetAltitude:
+    properties:
+      data:
+        $ref: '#/definitions/Altitude'
+      message:
+        description: |-
+          Message of the response
+          in: string
+        type: string
+        x-go-name: Message
+      status:
+        description: |-
+          Status of the error
+          in: int64
+        format: int64
+        type: integer
+        x-go-name: Status
+    type: object
+    x-go-package: casaaltitudine/controllers
+  GetAltitudes:
+    properties:
+      data:
+        $ref: '#/definitions/Altitudes'
+      message:
+        description: |-
+          Message of the response
+          in: string
+        type: string
+        x-go-name: Message
+      status:
+        description: |-
+          Status of the error
+          in: int64
+        format: int64
+        type: integer
+        x-go-name: Status
+    type: object
+    x-go-package: casaaltitudine/controllers
+  ReqAddAltitude:
+    properties:
+      valore:
+        description: |-
+          Value of the Altitude
+          in: int
+        format: int64
+        type: integer
+        x-go-name: Value
+    type: object
+    x-go-package: casaaltitudine/models
+info:
+  title: 'Altitude Api:'
+  version: 0.1.1
+paths:
+  /altitude:
+    post:
+      description: Create a new altitude value
+      operationId: addAltitude
+      responses:
+        "200":
+          description: GetAltitude
+          schema:
+            $ref: '#/definitions/GetAltitude'
+        "401":
+          description: CommonError
+          schema:
+            $ref: '#/definitions/CommonError'
+      security:
+      - apiKey:
+        - '[]'
+  /altitudes:
+    get:
+      description: Get Altitude list
+      operationId: listAltitude
+      responses:
+        "200":
+          description: GetAltitudes
+          schema:
+            $ref: '#/definitions/GetAltitudes'
+        "401":
+          description: CommonError
+          schema:
+            $ref: '#/definitions/CommonError'
+      security:
+      - apiKey:
+        - '[]'
+  /lasthour:
+    get:
+      description: Get list of last hour of altitude values .... or the last value
+        inserted
+      operationId: lastHour
+      responses:
+        "200":
+          description: GetAltitudes
+          schema:
+            $ref: '#/definitions/GetAltitudes'
+        "401":
+          description: CommonError
+          schema:
+            $ref: '#/definitions/CommonError'
+      security:
+      - apiKey:
+        - '[]'
+produces:
+- application/json
+schemes:
+- http
+- https
+swagger: "2.0"
