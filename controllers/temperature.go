@@ -84,7 +84,7 @@ func ErrHandler(errmessage string) *CommonError {
 func (h *BaseHandlerSqlx) GetTemperaturesSqlx(w http.ResponseWriter, r *http.Request) {
 	response := GetTemperatures{}
 
-	temperatures := models.GetTemperatureSqlx(h.db.DB)
+	temperatures := models.GetTemperaturesSqlx(h.db.DB)
 
 	response.Status = 1
 	response.Message = lang.Get("success")
